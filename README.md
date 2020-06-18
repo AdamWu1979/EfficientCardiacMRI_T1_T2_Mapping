@@ -1,6 +1,10 @@
 # EfficientCardiacMRI_T1_T2_Mapping
 Efficient Cardiac MRI T1 T2 Mapping with the Levenberg-Marquardt method
 
+<p align="center">
+    <img src="PRE-T1_TI.jpg", width="480">
+    <br>
+</p>
 
 ## Contents
 -	fittingCodePy: Includes the c++ code. You can build it based on the cmake files provided. This will produce a command line executable (it only works on nifti files). It will also produce a dynamic library, linked to python linked to python via boost library. The main fitting code only depends on the eigen C++ template lirbary. 
