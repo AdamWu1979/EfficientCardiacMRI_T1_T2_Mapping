@@ -1,0 +1,63 @@
+cmake_minimum_required (VERSION 2.6)
+
+project (demo)
+
+# The version number.
+set (demo_VERSION_MAJOR 1)
+
+set (demo_VERSION_MINOR 0)
+ 
+
+# configure a header file to pass some of the CMake settings
+
+# to the source code
+configure_file (
+  "${PROJECT_SOURCE_DIR}/demoConfig.h.in"
+  "${PROJECT_BINARY_DIR}/demoConfig.h"
+  )
+ 
+
+# add the binary tree to the search path for include files
+
+# so that we will find demoConfig.h
+
+include_directories( "C:/Fani/libraries/eigen-eigen-3_3beta2")
+include_directories("${PROJECT_BINARY_DIR}")
+
+include_directories ("${PROJECT_SOURCE_DIR}/ExternalLibs")
+
+include_directories ("${PROJECT_SOURCE_DIR}/ExternalLibs/nifti")
+
+include_directories ("${PROJECT_SOURCE_DIR}/ExternalLibs/lmCurveFitting")
+include_directories ("${PROJECT_SOURCE_DIR}/ExternalLibs/pyImage")
+
+add_subdirectory (ExternalLibs)
+
+add_subdirectory("${PROJECT_SOURCE_DIR}/ExternalLibs/lmCurveFitting")
+add_subdirectory("${PROJECT_SOURCE_DIR}/ExternalLibs/pyImage")
+set(EXTRA_LIBS ${EXTRA_LIBS} _extern_ReadWriteImage lmCurveFitting pyImageDy) 
+ 
+
+
+add_executable(demo demo.cxx fitNiftiImages.cxx)
+
+target_link_libraries (demo ${EXTRA_LIBS}) 
+
+
+install(TARGETS demo DESTINATION bin)
+
+
+
+install(TARGETS demo         
+RUNTIME DESTINATION bin COMPONENT Development
+        
+LIBRARY DESTINATION lib COMPONENT Development
+        
+ARCHIVE DESTINATION lib COMPONENT Development
+)
+
+
+install(FILES fitNiftiImages.h DESTINATION include COMPONENT Development)
+
+
+
